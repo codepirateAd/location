@@ -3,15 +3,41 @@
   <head>
     <meta charset="UTF-8">
     <title>Geolocation API Demo</title>
-  </head>
-  <body>
-    <p>Latitude: <span id="latitude"></span></p>
-    <p>Longitude: <span id="longitude"></span></p>
+   
+<script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js" ></script>
+<script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-database.js" ></script>
 
-    <script>
-      function showPosition(position) {
+
+<script>  
+// Import the functions you need from the SDKs you nee
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCgQrfTj937itS7bZBmz0gApPpirBv-FYY",
+    authDomain: "location-track-5a2ef.firebaseapp.com",
+    databaseURL: "https://location-track-5a2ef-default-rtdb.firebaseio.com",
+    projectId: "location-track-5a2ef",
+    storageBucket: "location-track-5a2ef.appspot.com",
+    messagingSenderId: "457511529084",
+    appId: "1:457511529084:web:7e413431c9c4776797f7f9",
+    measurementId: "G-NR6VSVJGJ9"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+  function showPosition(position) {
         document.getElementById("latitude").innerHTML = position.coords.latitude;
         document.getElementById("longitude").innerHTML = position.coords.longitude;
+        // const database = firebase.database();// Send latitude and longitude data to Firebase Realtime Database
+      
+        var messagesRef = firebase.database()
+            .ref('location');
+
+            messagesRef.set({
+              latitude: position.coords.latitude,
+    longitude: position.coords.longitude
+            });
+
       }
 
       function showError(error) {
@@ -36,6 +62,15 @@
       } else {
         alert("Geolocation is not supported by this browser.");
       }
+</script>
+  </head>
+  <body>
+    <p>Latitude: <span id="latitude"></span></p>
+    <p>Longitude: <span id="longitude"></span></p>
+
+    <script>
+      
     </script>
+    
   </body>
 </html>
